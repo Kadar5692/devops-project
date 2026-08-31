@@ -14,7 +14,7 @@ def home():
             <h1>🚀 My DevOps Project</h1>
             <h2>Flask Application</h2>
             <p>Application is running successfully!</p>
-            <p>Version: 1.0</p>
+            <p>Version: 1.1</p>
         </body>
     </html>
     """
