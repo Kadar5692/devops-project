@@ -1,48 +1,22 @@
-name: CI Pipeline
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.14"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Test Flask application
-        run: |
-          python -c "from app.app import app; print('Flask app imported successfully')"
-      - name: Build Docker image
-        run: docker build -t devops-project .
+from flask import Flask
 
-  build-and-push:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+app = Flask(__name__)
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+@app.route("/")
+def home():
+    return """
+    <html>
+        <head>
+            <title>My DevOps Project</title>
+        </head>
+        <body>
+            <h1>🚀 My DevOps Project</h1>
+            <h2>Flask Application</h2>
+            <p>Application is running successfully!</p>
+            <p>Version: 1.1</p>
+        </body>
+    </html>
+    """
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops-project:latest
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
