@@ -11,10 +11,13 @@ def home():
             <title>My DevOps Project</title>
         </head>
         <body>
-            <h1>🚀 My DevOps Project</h1>
-            <h2>Flask Application</h2>
             <p>Application is running successfully!</p>
-            <p>Version: 1.1</p>
+
+<h3>💡 “The secret of getting ahead is getting started.”</h3>
+
+<p>🚀 💻 🔥</p>
+
+<p>Version: 1.2 - Auto Deployment Test</p>
         </body>
     </html>
     """
